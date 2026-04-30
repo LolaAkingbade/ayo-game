@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family:
+    'Trebuchet MS',
+    'Segoe UI',
+    Tahoma,
+    Geneva,
+    Verdana,
+    sans-serif;
+  background: linear-gradient(165deg, #f8dfbe, #efbe8a 50%, #cc8f5d);
+}
+
+#root {
+  min-height: 100vh;
+}
