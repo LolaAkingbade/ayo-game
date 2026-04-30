@@ -31,8 +31,9 @@ function App() {
     const boardRect = boardRef.current?.getBoundingClientRect()
     if (!boardRect) return
 
+    let fromPod = selectedPod
     for (const targetPod of sowSteps) {
-      const fromRect = podRefs.current[selectedPod]?.getBoundingClientRect()
+      const fromRect = podRefs.current[fromPod]?.getBoundingClientRect()
       const toRect = podRefs.current[targetPod]?.getBoundingClientRect()
       if (!fromRect || !toRect) continue
 
@@ -47,6 +48,8 @@ function App() {
       await new Promise((resolve) => {
         setTimeout(resolve, 220)
       })
+
+      fromPod = targetPod
     }
   }
 
@@ -70,6 +73,7 @@ function App() {
         player: state.currentPlayer,
         selectedPod: podIndex,
         capturedCount: move.capturedCount,
+        relayCount: move.relayPickups.length,
         capturedPods: move.capturedPods,
         ruleName: activeRulePreset.name,
         previousState: state,
@@ -207,7 +211,9 @@ function App() {
                 <strong>
                   Turn {move.turn}: {PLAYER_NAMES[move.player]}
                 </strong>{' '}
-                sowed from pod {move.selectedPod + 1}, captured {move.capturedCount} balls
+                sowed from pod {move.selectedPod + 1}
+                {move.relayCount > 0 ? ` with ${move.relayCount} relay pickup(s)` : ''}, captured{' '}
+                {move.capturedCount} balls
                 {move.capturedPods.length > 0
                   ? ` (pods ${move.capturedPods.map((pod) => pod + 1).join(', ')})`
                   : ''}.
@@ -220,7 +226,11 @@ function App() {
       {showHowToPlay && (
         <dialog open className="modal">
           <h3>How to Play AYO</h3>
-          <p>Pick a pod from your row. All balls in that pod are sown one-by-one counterclockwise.</p>
+          <p>Pick a pod from your row. Sow one-by-one counterclockwise.</p>
+          <p>
+            If your last ball lands in a pod that already had balls, pick them up and continue sowing
+            (relay play). Your turn ends only when the last ball lands in an originally empty pod.
+          </p>
           <p>Captures follow the selected preset. You can switch presets at any time for different play styles.</p>
           <p>The game ends when one side has no playable pods. Remaining balls are added to scores.</p>
           <button type="button" className="ui-button" onClick={() => setShowHowToPlay(false)}>

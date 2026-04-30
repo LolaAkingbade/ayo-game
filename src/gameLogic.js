@@ -112,15 +112,27 @@ const resolveEndgame = (state) => {
 export const runMove = ({ state, selectedPod, captureRule = defaultCaptureRule }) => {
   const board = [...state.board]
   const scores = [...state.scores]
-  const balls = board[selectedPod]
+  let ballsInHand = board[selectedPod]
   board[selectedPod] = 0
 
   const sowSteps = []
+  const relayPickups = []
   let cursor = selectedPod
-  for (let i = 0; i < balls; i += 1) {
+
+  // Relay sowing (Ayo): continue from the landing pod if it was not empty before landing.
+  while (ballsInHand > 0) {
     cursor = getNextPod(cursor)
+    const previousCount = board[cursor]
     board[cursor] += 1
     sowSteps.push(cursor)
+
+    ballsInHand -= 1
+
+    if (ballsInHand === 0 && previousCount > 0) {
+      relayPickups.push(cursor)
+      ballsInHand = board[cursor]
+      board[cursor] = 0
+    }
   }
 
   const capturedPods = captureRule({
@@ -149,6 +161,7 @@ export const runMove = ({ state, selectedPod, captureRule = defaultCaptureRule }
 
   return {
     sowSteps,
+    relayPickups,
     capturedPods,
     capturedCount,
     nextState,
