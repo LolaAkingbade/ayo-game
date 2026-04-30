@@ -1,16 +1,42 @@
-# React + Vite
+# AYO Olopon - Web Board Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web adaptation of the traditional Nigerian/Yoruba game Ayo Olopon, built with React and Vite.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- [Play AYO Online](https://lolaakingbade.github.io/ayo-game)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 12-pod board (2 rows of 6) with classic sowing gameplay.
+- Local two-player mode with turn highlighting.
+- Rule presets (classic chain capture, single pod capture, no capture).
+- Move history with undo support.
+- Smooth ball sowing animation.
+- How-to-play modal and endgame winner dialog.
+- Warm, wood-inspired visual theme with responsive design.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Vite
+- Vanilla CSS
+
+## Run Locally
+
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+## Deploy (GitHub Pages)
+
+```bash
+npm run deploy
+```
